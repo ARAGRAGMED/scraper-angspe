@@ -126,7 +126,7 @@ async def get_status():
             "total_publications": total_publications,
             "version": "1.0.0",
             "uptime": "running",
-            "automation": "Vercel Cron Job (every 6 hours)"
+            "automation": "Vercel Cron Job (daily at 6:00 AM UTC)"
         }
         
         return status_info
