@@ -96,14 +96,37 @@ async def get_status():
         scraped_at = data.get('scraped_at', '')
         total_publications = data.get('total_unique_publications', 0)
         
+        # Check for cron job status
+        cron_status_path = project_root / "data" / "cron_status.json"
+        cron_error_path = project_root / "data" / "cron_error.json"
+        
+        cron_info = {}
+        if cron_status_path.exists():
+            try:
+                with open(cron_status_path, 'r', encoding='utf-8') as f:
+                    cron_info = json.load(f)
+            except:
+                pass
+        
+        if cron_error_path.exists():
+            try:
+                with open(cron_error_path, 'r', encoding='utf-8') as f:
+                    cron_error = json.load(f)
+                    cron_info['last_error'] = cron_error
+            except:
+                pass
+        
         status_info = {
             "status": "healthy",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "last_scrape": scraped_at,
+            "last_cron_run": cron_info.get('last_cron_run'),
+            "cron_status": cron_info.get('status'),
             "data_freshness": "current",
             "total_publications": total_publications,
             "version": "1.0.0",
-            "uptime": "running"
+            "uptime": "running",
+            "automation": "Vercel Cron Job (every 6 hours)"
         }
         
         return status_info
@@ -134,7 +157,7 @@ async def refresh_data(background_tasks: BackgroundTasks, api_key: str = Depends
                 "message": "Data refresh started in background",
                 "note": "Data will be updated in the background. Check /api/status for latest data freshness.",
                 "started_at": datetime.now(timezone.utc).isoformat(),
-                "estimated_completion": "2-5 minutes"
+                "estimated_completion": "10-30 seconds"
             },
             status_code=202
         )

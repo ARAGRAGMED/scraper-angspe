@@ -126,6 +126,15 @@ curl -X POST http://localhost:8000/refresh \
 curl http://localhost:8000/api/status
 ```
 
+### **Automatic Data Refresh (Vercel Cron Jobs)**
+```bash
+# Data is automatically refreshed every 6 hours via Vercel Cron Jobs
+# No manual intervention required in production
+
+# Check cron job status
+curl https://your-app.vercel.app/api/status | jq '.automation'
+```
+
 ### **Deploy to Vercel**
 ```bash
 # Install Vercel CLI
@@ -171,6 +180,7 @@ vercel
 - **Static File Serving**: Efficient serving of CSS, JS, and template files
 - **Background Tasks**: Non-blocking data refresh operations
 - **API Key Authentication**: Secure refresh endpoint protection
+- **Vercel Cron Jobs**: Automated data scraping every 6 hours for production reliability
 
 ### **Frontend**
 - **Vanilla JavaScript**: Lightweight, framework-free implementation
