@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}ANGSPE Publications - Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero-section">
+        <h2>ANGSPE Publications Dashboard</h2>
+        <p>Explore publications from Morocco's National Agency for Strategic Management of State Participations</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-file-alt"></i>
+            <h3 id="total-publications">-</h3>
+            <p>Total Publications</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-calendar-alt"></i>
+            <h3 id="latest-date">-</h3>
+            <p>Latest Publication</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-clock"></i>
+            <h3 id="data-freshness">-</h3>
+            <p>Last Refresh</p>
+        </div>
+    </div>
+
+    <div class="publications-section">
+        <h3>Recent Publications</h3>
+        <div class="table-container">
+            <table id="publications-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date Posted</th>
+                        <th>File Size</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="publications-tbody">
+                    <tr>
+                        <td colspan="5" class="loading">Loading publications...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="api-section">
+        <h3>API Documentation</h3>
+        <p>Interactive API documentation powered by FastAPI:</p>
+        <div class="api-docs-links">
+            <a href="/docs" target="_blank" class="btn btn-large">
+                <i class="fas fa-book"></i> OpenAPI Documentation
+            </a>
+            <a href="/redoc" target="_blank" class="btn btn-large btn-secondary">
+                <i class="fas fa-file-alt"></i> ReDoc Documentation
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

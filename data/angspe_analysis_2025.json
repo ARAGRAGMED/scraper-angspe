@@ -1,0 +1,40 @@
+{
+  "total_publications": 2,
+  "categories": {
+    "Rapport d'activités": 1,
+    "Autres rapports": 1
+  },
+  "file_types": {
+    "PDF": 2
+  },
+  "publications_by_year": {
+    "2025": 2
+  },
+  "average_file_size": "4.32 MB",
+  "latest_publication": {
+    "title": "Rapport sur l'État actionnaire 2023 - 2024",
+    "download_url": "https://api.angspe.ma/uploads/RA_ANGSPE_A4_VF_2_075083f90d.pdf",
+    "file_size": "6.92 Mo",
+    "date_posted": "26/06/2025",
+    "category": "Rapport d'activités",
+    "file_type": "PDF"
+  },
+  "publications_list": [
+    {
+      "title": "Rapport sur l'État actionnaire 2023 - 2024",
+      "download_url": "https://api.angspe.ma/uploads/RA_ANGSPE_A4_VF_2_075083f90d.pdf",
+      "file_size": "6.92 Mo",
+      "date_posted": "26/06/2025",
+      "category": "Rapport d'activités",
+      "file_type": "PDF"
+    },
+    {
+      "title": "Charte de gouvernance pour les EEP.",
+      "download_url": "https://api.angspe.ma/uploads/Charte_Gouvernance_EEP_ANGSPE_VDEF_QR_a6ff5f4569.pdf",
+      "file_size": "1755 ko",
+      "date_posted": "22/05/2025",
+      "category": "Autres rapports",
+      "file_type": "PDF"
+    }
+  ]
+}
