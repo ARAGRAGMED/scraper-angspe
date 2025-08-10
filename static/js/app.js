@@ -22,7 +22,9 @@ async function loadDashboardData() {
                 total_publications: publications.length,
                 latest_publication: publications.length > 0 ? publications[0] : null,
                 last_scrape: status.last_scrape,
-                data_freshness: status.data_freshness
+                data_freshness: status.data_freshness,
+                last_cron_run: status.last_cron_run,
+                cron_status: status.cron_status
             };
             
             updateStats(dashboardData);
@@ -92,6 +94,9 @@ function updateStats(data) {
     
     // Update data freshness with real data
     updateDataFreshness(data.last_scrape, data.data_freshness);
+    
+    // Update last cron run information
+    updateLastCronRun(data.last_cron_run, data.cron_status);
 }
 
 function updatePublicationsTable(publications) {
@@ -167,6 +172,55 @@ function updateDataFreshness(lastScrape, dataFreshness) {
         }
     } else {
         freshnessEl.textContent = 'Never';
+    }
+}
+
+function updateLastCronRun(lastCronRun, cronStatus) {
+    const cronEl = document.getElementById('last-cron-run');
+    if (!cronEl) return;
+    
+    if (lastCronRun) {
+        try {
+            // Parse the ISO timestamp and format it nicely
+            const cronDate = new Date(lastCronRun);
+            const now = new Date();
+            const timeDiff = now - cronDate;
+            
+            // Calculate how long ago the cron job ran
+            let timeAgo;
+            if (timeDiff < 60000) { // Less than 1 minute
+                timeAgo = 'Just now';
+            } else if (timeDiff < 3600000) { // Less than 1 hour
+                const minutes = Math.floor(timeDiff / 60000);
+                timeAgo = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            } else if (timeDiff < 86400000) { // Less than 1 day
+                const hours = Math.floor(timeDiff / 3600000);
+                timeAgo = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            } else {
+                const days = Math.floor(timeDiff / 86400000);
+                timeAgo = `${days} day${days > 1 ? 's' : ''} ago`;
+            }
+            
+            // Format the actual date
+            const formattedDate = cronDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Add status indicator
+            const statusIcon = cronStatus === 'success' ? '✅' : '⚠️';
+            cronEl.textContent = `${statusIcon} ${timeAgo}`;
+            cronEl.title = `Last auto-update: ${formattedDate}\nStatus: ${cronStatus || 'unknown'}`;
+        } catch (error) {
+            console.error('Error parsing cron date:', error);
+            cronEl.textContent = '⚠️ Unknown';
+        }
+    } else {
+        cronEl.textContent = '⚠️ Never';
+        cronEl.title = 'No automatic updates have run yet';
     }
 }
 
